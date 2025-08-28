@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic To-Do List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-robot"></i> NEOTASK</h1>
+            <p class="tagline">Your Futuristic Task Manager</p>
+        </header>
+
+        <div class="app-container">
+            <div class="sidebar">
+                <div class="user-profile">
+                    <div class="avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <p id="username">NeoUser</p>
+                    <button id="edit-username" class="edit-username"><i class="fas fa-edit"></i></button>
+                </div>
+                <nav>
+                    <ul>
+                        <li class="active"><i class="fas fa-tasks"></i> Tasks</li>
+                        <li><i class="fas fa-sticky-note"></i> Notes</li>
+                        <li><i class="fas fa-chart-line"></i> Analytics</li>
+                        <li><i class="fas fa-cog"></i> Settings</li>
+                    </ul>
+                </nav>
+                <div class="theme-toggle">
+                    <span>Theme</span>
+                    <label class="switch">
+                        <input type="checkbox" id="theme-switch">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="tasks-view active-view">
+                    <div class="section-header">
+                        <h2>My Tasks</h2>
+                        <div class="task-filters">
+                            <button class="filter-btn active" data-filter="all">All</button>
+                            <button class="filter-btn" data-filter="active">Active</button>
+                            <button class="filter-btn" data-filter="completed">Completed</button>
+                        </div>
+                    </div>
+
+                    <div class="add-task-container">
+        <input type="text" id="new-task" placeholder="Add a new task...">
+        <button id="add-task-btn"><i class="fas fa-plus"></i></button>
+    </div>
+    
+    <div class="quick-reminders">
+        <h3>Quick Reminders</h3>
+        <div class="reminder-buttons">
+            <button class="quick-reminder-btn" data-task="Drink water" data-time="60"><i class="fas fa-tint"></i> Drink Water</button>
+            <button class="quick-reminder-btn" data-task="Take a break" data-time="45"><i class="fas fa-coffee"></i> Take a Break</button>
+            <button class="quick-reminder-btn" data-task="Stretch" data-time="30"><i class="fas fa-walking"></i> Stretch</button>
+        </div>
+    </div>
+
+                    <div class="task-list" id="task-list">
+                        <!-- Tasks will be added here dynamically -->
+                    </div>
+                </div>
+
+                <div class="notes-view">
+                    <div class="section-header">
+                        <h2>My Notes</h2>
+                        <button id="add-note-btn"><i class="fas fa-plus"></i> New Note</button>
+                    </div>
+
+                    <div class="notes-container" id="notes-container">
+                        <!-- Notes will be added here dynamically -->
+                    </div>
+                </div>
+
+                <div class="analytics-view">
+                    <div class="section-header">
+                        <h2>Analytics</h2>
+                    </div>
+                    <div class="analytics-content">
+                        <div class="stat-card">
+                            <h3>Task Completion</h3>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: 65%;"></div>
+                            </div>
+                            <p>65% Complete</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Productivity Score</h3>
+                            <div class="score">87</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-view">
+                    <div class="section-header">
+                        <h2>Settings</h2>
+                    </div>
+                    <div class="settings-content">
+                        <div class="setting-item">
+                            <span>Notifications</span>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <span>Notification Sound</span>
+                            <label class="switch">
+                                <input type="checkbox" id="sound-switch" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <span>Auto-save</span>
+                            <label class="switch">
+                                <input type="checkbox" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Templates for dynamic content -->
+    <template id="task-template">
+        <div class="task-item">
+            <div class="task-content">
+                <label class="task-checkbox">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                </label>
+                <span class="task-text"></span>
+                <span class="task-reminder"></span>
+            </div>
+            <div class="task-actions">
+                <button class="set-reminder" title="Set Reminder"><i class="fas fa-clock"></i></button>
+                <button class="edit-task" title="Edit Task"><i class="fas fa-edit"></i></button>
+                <button class="delete-task" title="Delete Task"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>
+    </template>
+
+    <template id="note-template">
+        <div class="note-card">
+            <div class="note-header">
+                <h3 class="note-title"></h3>
+                <div class="note-actions">
+                    <button class="edit-note"><i class="fas fa-edit"></i></button>
+                    <button class="delete-note"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="note-content"></div>
+            <div class="note-footer">
+                <span class="note-date"></span>
+            </div>
+        </div>
+    </template>
+
+    <div class="modal" id="note-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Note</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="note-title" placeholder="Note Title">
+                <textarea id="note-content" placeholder="Write your note here..."></textarea>
+            </div>
+            <div class="modal-footer">
+                <button id="save-note-btn">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Username Modal -->
+    <div id="username-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Username</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="username-input" placeholder="Enter new username">
+            </div>
+            <div class="modal-footer">
+                <button id="save-username-btn">Save Username</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="reminder-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Set Reminder</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="task-name-display"></div>
+                <div class="reminder-form">
+                    <div class="form-group">
+                        <label for="reminder-time">Remind me in:</label>
+                        <div class="time-input-container">
+                            <input type="number" id="reminder-time" min="1" value="30">
+                            <select id="reminder-unit">
+                                <option value="60">Minutes</option>
+                                <option value="3600">Hours</option>
+                                <option value="86400">Days</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="save-reminder-btn">Set Reminder</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <div class="notification-content">
+            <div class="notification-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="notification-text">
+                <h4>Reminder</h4>
+                <p id="notification-message"></p>
+            </div>
+            <button class="close-notification">&times;</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
